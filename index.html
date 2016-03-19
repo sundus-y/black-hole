@@ -1,0 +1,244 @@
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/base.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="js/base.js"></script>
+    <title>Black Hole</title>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Black Hole</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Play Online<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#" data-toggle="modal" data-target="#new_game_modal">Create New</a>
+                            </li>
+                            <li><a href="#" data-toggle="modal" data-target="#join_game_modal">Join Game</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Black Hole</h1>
+                    <div>The strategy of chess, the beauty of Go and the simplicity of checkers﻿</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 player1-side">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 id="player-1-turn">Your Turn</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="cell-player-box">
+                            <div id="player-1-1-" draggable="true" class="cell-player1" ondragstart="drag(event)">1</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-1-3-" draggable="true" class="cell-player1" ondragstart="drag(event)">3</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-1-5-" draggable="true" class="cell-player1" ondragstart="drag(event)">5</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-1-7-" draggable="true" class="cell-player1" ondragstart="drag(event)">7</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-1-9-" draggable="true" class="cell-player1" ondragstart="drag(event)">9</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="cell-player-box">
+                            <div id="player-1-2-" draggable="true" class="cell-player1" ondragstart="drag(event)">2</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-1-4-" draggable="true" class="cell-player1" ondragstart="drag(event)">4</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-1-6-" draggable="true" class="cell-player1" ondragstart="drag(event)">6</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-1-8-" draggable="true" class="cell-player1" ondragstart="drag(event)">8</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-1-10-" draggable="true" class="cell-player1" ondragstart="drag(event)">10</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 board">
+                <div class="row row-1">
+                    <div class="col-md-3"></div>
+                    <div id="board-1-1" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-1-2" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-1-3" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-1-4" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-1-5" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-1-6" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div class="col-md-3"></div>
+                </div>
+                <div class="row row-2">
+                    <!--<div class="col-md-4"></div>-->
+                    <div id="board-2-1" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-2-2" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-2-3" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-2-4" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-2-5" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <!--<div class="col-md-4"></div>-->
+                </div>
+                <div class="row row-3">
+                    <div class="col-md-4"></div>
+                    <div id="board-3-1" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-3-2" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-3-3" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-3-4" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div class="col-md-4"></div>
+                </div>
+                <div class="row row-4">
+                    <!--<div class="col-md-5"></div>-->
+                    <div id="board-4-1" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-4-2" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-4-3" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <!--<div class="col-md-4"></div>-->
+                </div>
+                <div class="row row-5">
+                    <div class="col-md-5"></div>
+                    <div id="board-5-1" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-5-2" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div class="col-md-5"></div>
+                </div>
+                <div class="row row-6">
+                    <!--<div class="col-md-6"></div>-->
+                    <div id="board-6-1" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <!--<div class="col-md-5"></div>-->
+                </div>
+            </div>
+            <div class="col-md-2 player2-side">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 id="player-2-turn">Your Turn</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="cell-player-box">
+                            <div id="player-2-1-" draggable="true" class="cell-player2" ondragstart="drag(event)">1</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-2-3-" draggable="true" class="cell-player2" ondragstart="drag(event)">3</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-2-5-" draggable="true" class="cell-player2" ondragstart="drag(event)">5</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-2-7-" draggable="true" class="cell-player2" ondragstart="drag(event)">7</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-2-9-" draggable="true" class="cell-player2" ondragstart="drag(event)">9</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="cell-player-box">
+                            <div id="player-2-2-" draggable="true" class="cell-player2" ondragstart="drag(event)">2</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-2-4-" draggable="true" class="cell-player2" ondragstart="drag(event)">4</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-2-6-" draggable="true" class="cell-player2" ondragstart="drag(event)">6</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-2-8-" draggable="true" class="cell-player2" ondragstart="drag(event)">8</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-2-10-" draggable="true" class="cell-player2" ondragstart="drag(event)">10</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.container -->
+
+    <div id="new_game_modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Create New Game</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="game_name">Game Name:</label>
+                            <input type="text" class="form-control" id="game_name" placeholder="Type your game name . ..">
+                        </div>
+                        <button type="button" class="btn btn-success">Create Game</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="join_game_modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Join Game</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="game_name">Game Name:</label>
+                            <input type="text" class="form-control" id="game_name" placeholder="Type your game name . ..">
+                        </div>
+                        <button type="button" class="btn btn-success">Join Game</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+</body>
+</html>
