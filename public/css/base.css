@@ -1,0 +1,142 @@
+body{
+    margin: 20px;
+}
+
+div.page-header > div.row > div > h1{
+    text-align: center;
+    font-family: "Avenir Next Condensed";
+    font-size: 60px;
+    font-weight: 800;
+    padding-left: 66px;
+}
+
+div.page-header > div.row > div > div{
+    margin-top: -16px;
+    text-align: center;
+    font-family: "Avenir Next Condensed";
+    font-size: 14px;
+    padding-left: 66px;
+}
+
+h2#player-1-turn{
+    text-align: center;
+    color: red;
+    font-family: "Avenir Next Condensed";
+    font-weight: 800;
+    display: none;
+}
+
+h2#player-2-turn{
+    text-align: center;
+    color: blue;
+    font-family: "Avenir Next Condensed";
+    font-weight: 800;
+    display: none;
+}
+
+div.player1-side, div.player2-side{
+    text-align: center;
+    margin-top: -20px;
+}
+div.player1-side > div > div, div.player2-side > div > div  {
+    height: 50px;
+}
+
+div.board > div.row > div.cell{
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    background: darkslategray;
+    border: 3px solid black;
+    margin: 3px;
+}
+
+div.mouse-over {
+    background: lightgrey !important;
+}
+
+div.cell-player-box{
+    margin: 4px;
+    border-radius: 50%;
+    width: 66px;
+    height: 66px;
+    background: #00000f;
+    border: 3px solid #00000f;
+}
+div.player1-side > div.row > div > div > div.cell-player1{
+    margin: 1px;
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    background: red;
+    border: 0.5px solid black;
+    font-size: 50px;
+    color: white;
+    text-align: center;
+    font-family: "Avenir Next Condensed";
+}
+div.board > div.row > div.cell > div.cell-player1 {
+    margin-left: -15px;
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    background: red;
+    font-size: 50px;
+    color: white;
+    text-align: center;
+    font-family: "Avenir Next Condensed";
+}
+
+div.player2-side > div.row > div > div > div.cell-player2{
+    margin: 1px;
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    background: blue;
+    border: 0.5px solid black;
+    font-size: 50px;
+    color: white;
+    text-align: center;
+    font-family: "Avenir Next Condensed";
+}
+div.board > div.row > div.cell > div.cell-player2 {
+    margin-left: -15.1px;
+    margin-top: -0.5px;
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    background: blue;
+    font-size: 50px;
+    color: white;
+    text-align: center;
+    font-family: "Avenir Next Condensed";
+}
+
+div.row-2{
+    margin-left: 213px;
+}
+
+div.row-3{
+    margin-left: 2px;
+}
+
+div.row-4{
+    margin-left: 290px;
+}
+
+div.row-5{
+    margin-left: 25px;
+}
+
+div.row-6{
+    margin-left: 367px;
+}
+
+.black-hole-element{
+    background: black !important;
+    border-color: black !important;
+}
+
+.black-hole{
+    background: black !important;
+}

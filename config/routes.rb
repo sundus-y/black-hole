@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  post 'pusher/auth' => 'pusher#auth', as: :pusher_auth
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

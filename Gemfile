@@ -17,19 +17,20 @@ gem 'rake', '~> 0.9.6'
 # $ rhc env set BUNDLE_WITHOUT="development test postgresql"
 #
 group :development, :test do
+  gem 'byebug'
   gem 'sqlite3'
   gem 'minitest'
   gem 'thor'
 end
 
 # Add support for the MySQL
-group :production, :mysql do
-  gem 'mysql2'
-end
-
-group :production, :postgresql do
-  gem 'pg'
-end
+# group :production, :mysql do
+#   gem 'mysql2'
+# end
+#
+# group :production, :postgresql do
+#   gem 'pg'
+# end
 
 ### / OpenShift changes
 
@@ -54,6 +55,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
 
+gem 'pusher'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
