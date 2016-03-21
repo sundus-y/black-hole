@@ -23,7 +23,7 @@ group :development, :test do
   gem 'thor'
 end
 
-Add support for the MySQL
+# Add support for the MySQL
 group :production, :mysql do
   gem 'mysql2'
 end
