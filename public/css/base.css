@@ -1,5 +1,5 @@
 body{
-    margin: 20px;
+    margin: 5px;
 }
 
 div.page-header > div.row > div > h1{
@@ -16,6 +16,20 @@ div.page-header > div.row > div > div{
     font-family: "Avenir Next Condensed";
     font-size: 14px;
     padding-left: 66px;
+}
+
+h3#player1-name {
+    text-align: left;
+    font-family: "Avenir Next Condensed";
+    font-size: 50px;
+    color: red;
+}
+
+h3#player2-name {
+    text-align: right;
+    font-family: "Avenir Next Condensed";
+    font-size: 50px;
+    color: blue;
 }
 
 h2#player-1-turn{
@@ -74,6 +88,7 @@ div.player1-side > div.row > div > div > div.cell-player1{
     color: white;
     text-align: center;
     font-family: "Avenir Next Condensed";
+    cursor: hand;
 }
 div.board > div.row > div.cell > div.cell-player1 {
     margin-left: -15px;
@@ -98,8 +113,9 @@ div.player2-side > div.row > div > div > div.cell-player2{
     color: white;
     text-align: center;
     font-family: "Avenir Next Condensed";
+    cursor: hand;
 }
-div.board > div.row > div.cell > div.cell-player2 {
+div.board > div.row > div.cell > div.cell-player2{
     margin-left: -15.1px;
     margin-top: -0.5px;
     border-radius: 50%;
@@ -107,6 +123,33 @@ div.board > div.row > div.cell > div.cell-player2 {
     height: 65px;
     background: blue;
     font-size: 50px;
+    color: white;
+    text-align: center;
+    font-family: "Avenir Next Condensed";
+}
+
+.player-2-black-hole-elem > div.cell-player2{
+    margin-left: 0px;
+    margin-top: -0.5px;
+    border-radius: 50%;
+    display: inline-block;
+    width: 44px;
+    height: 44px;
+    background: blue;
+    font-size: 34px;
+    color: white;
+    text-align: center;
+    font-family: "Avenir Next Condensed";
+}
+
+.player-1-black-hole-elem > div.cell-player1{
+    margin-left: 0px;
+    border-radius: 50%;
+    display: inline-block;
+    width: 44px;
+    height: 44px;
+    background: red;
+    font-size: 34px;
     color: white;
     text-align: center;
     font-family: "Avenir Next Condensed";
@@ -139,4 +182,36 @@ div.row-6{
 
 .black-hole{
     background: black !important;
+}
+
+div#new_game_progress, div#join_game_progress{
+    height: 30px;
+}
+
+div.new_progress_bar, div.join_progress_bar{
+    width: 100%;
+    font-family: "Avenir Next Condensed";
+    font-size: 25px;
+    padding-top: 4px;
+}
+
+div#game_over_modal_content{
+    background: rgba(128, 128, 128, 0.93);
+}
+
+div.modal-body > div.row{
+    margin-left: 10px;
+}
+
+div.player-1-score, div.player-2-score {
+    font-family: "Avenir Next Condensed";
+    font-size: 40px;
+    color: white;
+}
+
+h3.winner {
+    text-align: center;
+    font-family: "Avenir Next Condensed";
+    font-size: 50px;
+    text-shadow: 2px 0 black, 0 -1px black, 1px 0 black, 0 -1px black;
 }

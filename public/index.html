@@ -50,12 +50,22 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div id="main_container" class="container">
         <div class="page-header">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-3">
+                    <h3 id='player1-name' >Player 1</h3>
+                </div>
+                <div class="col-md-6">
                     <h1>Black Hole</h1>
-                    <div>The strategy of chess, the beauty of Go and the simplicity of checkers﻿</div>
+                    <div>
+                        The strategy of chess, the beauty of Go and the simplicity of checkers﻿
+                        <br>
+                        <button id="reset_game" type="button" class="btn btn-danger">Reset Game</button>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h3 id='player2-name'>Player 2</h3>
                 </div>
             </div>
         </div>
@@ -206,11 +216,19 @@
                 <div class="modal-body">
                     <form id="create_game_form" class="form-inline">
                         <div class="form-group">
-                            <label for="create_game_name">Game Name:</label>
-                            <input type="text" class="form-control" id="create_game_name" placeholder="Type your game name . .." required>
+                            <label for="host_name">Your name:</label>
+                            <input type="text" class="form-control" id="host_name" placeholder="Name . . ." pattern=".{3,}" required title="3 characters minimum">
+                            <label for="new_game_key" style="margin-left: 25px;">KEY:</label>
+                            <input type="text" class="form-control" id="new_game_key" placeholder="Auto" style="font-size: 24px; width: 87px;" disabled>
                         </div>
-                        <button id="create_game" type="submit" class="btn btn-success">Create Game</button>
+                        <button style="float: right" id="create_game" type="submit" class="btn btn-success">Create Game</button>
                     </form>
+                    <div id="new_game_progress" class="progress" style="display: none">
+                        <div class="new_progress_bar progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                            Creating Game
+                        </div>
+                    </div>
+                    <div id='join_note' class="alert alert-info" role="alert" style="display: none">Now tell your friend the KEY and wait until he joins. Please don't close this box.</div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -229,11 +247,18 @@
                 <div class="modal-body">
                     <form id="join_game_form" class="form-inline">
                         <div class="form-group">
-                            <label for="join_game_name">Game Name:</label>
-                            <input type="text" class="form-control" id="join_game_name" placeholder="Type your game name . .." required>
+                            <label for="client_name">Your name:</label>
+                            <input type="text" class="form-control" id="client_name" placeholder="Name . . ." pattern=".{3,}" required title="3 characters minimum">
+                            <label for="join_game_key" style="margin-left: 25px;">KEY:</label>
+                            <input type="text" class="form-control" id="join_game_key" placeholder="KEY" pattern=".{4}" required title="4 characters Key" style="font-size: 24px; width: 87px;">
                         </div>
-                        <button id="join_game" type="submit" class="btn btn-success">Join Game</button>
+                        <button style="float: right" id="join_game" type="submit" class="btn btn-success">Join Game</button>
                     </form>
+                    <div id="join_game_progress" class="progress" style="display: none">
+                        <div class="join_progress_bar progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                            Connecting to host
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -242,5 +267,59 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
+    <div id="game_over_modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div id="game_over_modal_content" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 id="round_title" class="modal-title">Round 1/2</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="round_1_result row">
+                        <div class="col-md-6">
+                            <div class="player-1-black-hole-elem row">
+
+                            </div>
+                            <div class="player-1-score row">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="player-2-black-hole-elem row">
+
+                            </div>
+                            <div class="player-2-score row">
+
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="winner round_1_winner">Round 1 - Wins</h3>
+                    <hr>
+                    <div class="round_2_result row" style="display: none">
+                        <div class="col-md-6">
+                            <div class="player-1-black-hole-elem row">
+
+                            </div>
+                            <div class="player-1-score row">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="player-2-black-hole-elem row">
+
+                            </div>
+                            <div class="player-2-score row">
+
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="winner round_2_winner" style="display: none">Round 2 - Wins</h3>
+                </div>
+                <div class="modal-footer">
+                    <button id="modal_next_game" type="button" class="btn btn-danger" data-dismiss="modal">Play Round 2</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </body>
 </html>
