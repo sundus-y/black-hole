@@ -23,7 +23,7 @@ $(document).ready(function(){
         var key = guid().toUpperCase();
         $('#new_game_key').val(key);
         $('#new_game_progress').show();
-        host_channel = pusher.subscribe('private-'+'B27B');
+        host_channel = pusher.subscribe('private-'+key);
 
         host_channel.bind('pusher:subscription_succeeded', function() {
             setTimeout(function() {
@@ -66,7 +66,7 @@ $(document).ready(function(){
         $('#join_game').attr('disabled',true);
         client = $('#client_name').val()
         var key = $('#join_game_key').val().toUpperCase();
-        client_channel = pusher.subscribe('private-'+'B27B');
+        client_channel = pusher.subscribe('private-'+key);
         var host_not_found = true;
         $('#join_game_progress').show();
 
@@ -103,7 +103,7 @@ $(document).ready(function(){
         setTimeout(function(){
             if (host_not_found){
                 $('.join_progress_bar').text("Host with '" + key + "' key was not found, Try Again !");
-                pusher.unsubscribe('private-'+'B27B');
+                pusher.unsubscribe('private-'+key);
                 setTimeout(function(){
                     $('#join_game_modal').modal('toggle');
                 },5000)
