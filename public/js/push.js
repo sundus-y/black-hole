@@ -39,7 +39,7 @@ $(document).ready(function(){
             client = data['name'];
             $('.new_progress_bar').text(client + ' has joined the game.');
             host_channel.trigger('client-host-found', { player: "1", name: host});
-            start_online_game(host,data['name'],2);
+            start_online_game(host,data['name']);
             host_channel.trigger('client-start-round', {
                 player: '1',
                 name: host,
@@ -83,7 +83,7 @@ $(document).ready(function(){
         });
 
         client_channel.bind('client-start-round', function (data) {
-            start_online_game(data['name'],client,1);
+            start_online_game(data['name'],client);
             game_count =  data['game_count'],
             current_player = data['current_player'];
             next_player = data['next_player'];
@@ -113,11 +113,15 @@ $(document).ready(function(){
     });
 });
 
-function start_online_game(host,client,disable_player){
+function start_online_game(host,client){
     $('#player1-name').text(host);
     $('#player2-name').text(client);
     playing_online = true;
-    $('.player'+disable_player+'-side').find('div.cell-player'+disable_player).attr('draggable', false);
+    if (client_channel) {
+        $('.player1-side').find('div.cell-player1').attr('draggable', false);
+    } else if (host_channel) {
+        $('.player2-side').find('div.cell-player2').attr('draggable', false);
+    }
 }
 
 function sendMoveMessage(source_id,destination_id){

@@ -222,7 +222,7 @@ function nextGame(){
 function nextOnlineGame(){
     game_count = 2;
     resetGame();
-    start_online_game(host, client, 1);
+    start_online_game(host, client);
 }
 
 function newGame(){
