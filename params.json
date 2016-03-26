@@ -1,0 +1,6 @@
+{
+  "name": "Black-hole",
+  "tagline": "A fun and easy game.",
+  "body": "### Welcome to Black Hole.\r\nBlack Hole is a number war game where players take turns placing counters, 1 then 2 then 3, all the way down to 10. At the end of the game there'll be one place left on the board, that is the <b>Black Hole</b>, which sucks in all the numbers around it. So whoever has the least number pulled in is going to be the winner.\r\n\r\n***\r\n\r\n### Inspired By: [Black Hole](https://goo.gl/zpifPk)\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
