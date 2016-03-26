@@ -7,12 +7,7 @@ Pusher.log = function(message) {
 
 var pusher = new Pusher('5893435b77f64bb73bb4', {
     encrypted: true,
-    authEndpoint: 'pusher/auth',
-    auth: {
-        headers: {
-            'X-CSRF-Token': 'bbEJKhxJQgrDy0vCVkTIa+XtHmk4WijndSqvFVTEn3o='
-        }
-    }
+    authEndpoint: 'pusher/auth'
 });
 
 $(document).ready(function(){
@@ -28,18 +23,18 @@ $(document).ready(function(){
         host_channel.bind('pusher:subscription_succeeded', function() {
             setTimeout(function() {
                 $('.new_progress_bar').text('Game Created');
-            },2000);
+            },1000);
             setTimeout(function(){
                 $('.new_progress_bar').text('Waiting for your friend');
                 $('#join_note').show();
-            },3000);
+            },2000);
         });
 
         host_channel.bind('client-user-joined', function(data) {
-            client = data['name'];
+            client = data.name;
             $('.new_progress_bar').text(client + ' has joined the game.');
             host_channel.trigger('client-host-found', { player: "1", name: host});
-            start_online_game(host,data['name']);
+            start_online_game(host,data.name);
             host_channel.trigger('client-start-round', {
                 player: '1',
                 name: host,
@@ -57,14 +52,14 @@ $(document).ready(function(){
         });
 
         host_channel.bind('client-make-move', function (data) {
-            dropMade(data['source_id'],data['destination_id']);
+            dropMade(data.source_id,data.destination_id);
         });
     });
 
     $('#join_game_form').on('submit',function(event){
         event.preventDefault();
         $('#join_game').attr('disabled',true);
-        client = $('#client_name').val()
+        client = $('#client_name').val();
         var key = $('#join_game_key').val().toUpperCase();
         client_channel = pusher.subscribe('private-'+key);
         var host_not_found = true;
@@ -77,18 +72,18 @@ $(document).ready(function(){
 
         client_channel.bind('client-host-found', function(data){
             host_not_found = false;
-            host = data['name'];
+            host = data.name;
             $('.join_progress_bar').text(host + ' has joined the game.');
             playing_online = true;
         });
 
         client_channel.bind('client-start-round', function (data) {
-            start_online_game(data['name'],client);
-            game_count =  data['game_count'],
-            current_player = data['current_player'];
-            next_player = data['next_player'];
-            other_has_moved = data['other_has_moved'];
-            current_play = data['current_play'];
+            start_online_game(data.name,client);
+            game_count =  data.game_count;
+            current_player = data.current_player;
+            next_player = data.next_player;
+            other_has_moved = data.other_has_moved;
+            current_play = data.current_play;
             playing_online = true;
             game_over = false;
             setTimeout(function(){
@@ -97,7 +92,7 @@ $(document).ready(function(){
         });
 
         client_channel.bind('client-make-move', function (data) {
-            dropMade(data['source_id'],data['destination_id']);
+            dropMade(data.source_id,data.destination_id);
         });
 
         setTimeout(function(){
@@ -106,7 +101,7 @@ $(document).ready(function(){
                 pusher.unsubscribe('private-'+key);
                 setTimeout(function(){
                     $('#join_game_modal').modal('toggle');
-                },5000)
+                },5000);
             }
         },5000);
 

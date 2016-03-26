@@ -35,7 +35,7 @@ $(document).ready(function(){
     });
 
     $('#game_over_modal').on('hidden.bs.modal', function(){
-        if (game_over == true){
+        if (game_over === true){
             $(this).remove();
             $('body').append(game_over_modal.clone());
             newGame();
@@ -49,9 +49,9 @@ $(document).ready(function(){
     $('body').on('click','#modal_next_game',function(){
         if (game_count == 2){
             game_over = true;
-        } else if (playing_online == true) {
+        } else if (playing_online === true) {
             nextOnlineGame();
-        } else if (playing_online == false) {
+        } else if (playing_online === false) {
             nextGame();
         }
     });
@@ -87,7 +87,7 @@ function dropMade(source_id, destination_id) {
     nextPlay();
     updateLabel();
     var result = findWinner();
-    if (result.length != 0) {
+    if (result.length !== 0) {
         show_result(result);
     }
 }
@@ -103,11 +103,11 @@ function disallowDrop(ev){
 }
 
 function moveCell(source_id,destination_id){
-    $('#'+source_id).removeAttr('draggable');
-    $('#'+destination_id).removeAttr('ondrop');
-    $('#'+destination_id).removeAttr('ondragover');
-    $('#'+destination_id).removeAttr('ondragleave');
-    $('#'+source_id).appendTo($('#'+destination_id));
+    $('#'+source_id).removeAttr('draggable')
+        .appendTo($('#'+destination_id));
+    $('#'+destination_id).removeAttr('ondrop')
+        .removeAttr('ondragover')
+        .removeAttr('ondragleave');
 }
 
 function nextPlay(){
@@ -168,17 +168,7 @@ function findWinner(){
     return [];
 }
 
-function show_result(results){
-    $('#game_over_modal').modal('toggle');
-    var result_container = $('.round_' + game_count + '_result');
-    var winner_div = $('h3.round_' + game_count + '_winner');
-    $('#round_title').text("Round " + game_count + " of 2");
-    results[0][0].removeAttr('id');
-    results[0][1].removeAttr('id');
-    result_container.find('.player-1-black-hole-elem').append($(results[0][0]));
-    result_container.find('.player-2-black-hole-elem').append($(results[0][1]));
-    result_container.find('.player-1-score').text("= "+results[1][0]);
-    result_container.find('.player-2-score').text("= "+results[1][1]);
+function setupModal() {
     if (game_count == 2) {
         $('.round_2_result').show();
         $('h3.round_2_winner').show();
@@ -188,14 +178,169 @@ function show_result(results){
         $('h3.round_2_winner').hide();
         $('#modal_next_game').text('Play Round 2');
     }
-    if (results[1][0] < results[1][1]) {
-        winner_div.text('Player 1 Wins Round ' + game_count);
-        winner_div.css('color','red');
-    } else if (results[1][0] > results[1][1]) {
-        winner_div.text('Player 2 Wins Round ' + game_count);
-        winner_div.css('color','blue');
+    $('#game_over_modal').modal('toggle');
+}
+
+function show_result(results){
+    var result_container = $('.round_' + game_count + '_result');
+    var winner_div = $('h3.round_' + game_count + '_winner');
+    $('#round_title').text("Round " + game_count + " of 2");
+    var p1_cells = results[0][0].clone();
+    var p2_cells = results[0][1].clone();
+    blackHoleAnimation(results[0][0],results[0][1]);
+    setTimeout(function(){
+        setupModal();
+        setupScoreCellAnimation(p1_cells);
+        setupScoreCellAnimation(p2_cells);
+        scoreCellAnimation(p1_cells,1,result_container).then(function(){
+            scoreAnimation(result_container, results[1][0],1).then(function(){
+                scoreCellAnimation(p2_cells,2,result_container).then(function(){
+                    scoreAnimation(result_container, results[1][1],2).then(function(){
+                        winnerTextAnimation(winner_div,results[1]);
+                    });
+                });
+            });
+        });
+    },950);
+}
+
+function blackHoleAnimation(p1_elems,p2_elems) {
+    var black_hole_position = [$('.black-hole').data('row'), $('.black-hole').data('col')];
+    p1_elems.css('position', 'absolute');
+    p2_elems.css('position', 'absolute');
+    $.each(p1_elems, function (index, elem) {
+        moveToBlackHole($(elem), black_hole_position);
+    });
+    $.each(p2_elems, function (index, elem) {
+        moveToBlackHole($(elem), black_hole_position);
+    });
+    setTimeout(function(){
+        p1_elems.remove();
+        p2_elems.remove();
+    },900);
+}
+
+function setupScoreCellAnimation(cells){
+    cells.removeAttr('id');
+    cells.removeAttr('style');
+    cells.velocity({opacity:0,scaleX:0,scaleY:0});
+}
+
+function winnerTextAnimation(winner_div,results){
+    var winner_text, winner_color;
+    var player1_name = $('#player1-name').text();
+    var player2_name = $('#player2-name').text();
+    if (results[0] < results[1]) {
+        winner_text = player1_name + ' Wins Round ' + game_count;
+        winner_color ='red';
+    } else if (results[0] > results[1]) {
+        winner_text = player2_name + ' Wins Round ' + game_count;
+        winner_color = 'blue';
     } else {
-        winner_div.text('Round ' + game_count + ' is a Draw');
+        winner_text = 'Round ' + game_count + ' is a Draw';
+        winner_color = 'black';
+    }
+    winner_div.text(winner_text);
+    winner_div.css('color',winner_color);
+    return $.Velocity.animate(winner_div,"fadeIn",{duration:500});
+}
+
+function scoreCellAnimation(elems,player,result_container){
+    var deferred = $.Deferred();
+    result_container.find('.player-'+player+'-black-hole-elem').append(elems);
+    if (elems.length === 0){
+        result_container.find('.player-'+player+'-black-hole-elem')
+            .append("--- EMPTY ---")
+            .css("font-size",'30px');
+        deferred.resolve('prefect score');
+    }
+    $.each(elems,function(index,elem){
+        setTimeout(function(){
+            $(elem).velocity({opacity:1,scaleX:1,scaleY:1},'easeOutElastic');
+            if (index+1 === elems.length){
+                deferred.resolve('done showing');
+            }
+        },200*(index+1));
+    });
+    return deferred.promise();
+}
+
+function scoreAnimation(result_container, score, player) {
+    var score_div = result_container.find('.player-'+player+'-score');
+    score_div.text("= " + score);
+    return $.Velocity.animate(score_div[0],"fadeIn",{duration:500});
+}
+
+function moveToBlackHole(cell, black_hole_position) {
+    var row = parseInt($(cell).parent().data('row'));
+    var col = parseInt($(cell).parent().data('col'));
+    var bh_row = parseInt(black_hole_position[0]);
+    var bh_col = parseInt(black_hole_position[1]);
+    if(row < bh_row){
+        if(parseInt(col) === bh_col){
+            cell.velocity({
+                translateX:'30px',translateY:'76px',
+                opacity: 0,
+                scaleX: 0.8,scaleY:0.8,
+                backgroundColor:'#000000',color:'#000000'
+            },{
+                duration: 800
+            });
+        }
+        if(parseInt(col) > bh_col){
+            cell.velocity({
+                translateX:'-40px',translateY: "76px",
+                opacity: 0,
+                scaleX: 0.8,scaleY:0.8,
+                backgroundColor:'#000000',color:'#000000'
+            },{
+                duration: 800
+            });
+        }
+    }
+    if(row === bh_row){
+        if(parseInt(col) < bh_col){
+            cell.velocity({
+                translateX:'72px',translateY: "0px",
+                opacity: 0,
+                scaleX: 0.8,scaleY:0.8,
+                backgroundColor:'#000000',color:'#000000'
+            },{
+                duration: 800
+            });
+        }
+        if(parseInt(col) > bh_col){
+            cell.velocity({
+                translateX:'-76px',translateY: "0px",
+                opacity: 0,
+                scaleX: 0.8,scaleY:0.8,
+                backgroundColor:'#000000',color:'#000000'
+            },{
+                duration: 800
+            });
+        }
+    }
+    if(row > bh_row){
+        if(parseInt(col) < bh_col){
+            cell.velocity({
+                translateX:'32px',translateY: "-76px",
+                opacity: 0,
+                scaleX: 0.8,scaleY:0.8,
+                backgroundColor:'#000000',color:'#000000'
+            },{
+                duration: 800
+            });
+        }
+        if(parseInt(col) === bh_col){
+            cell.velocity({
+                translateX:'-43.5px',translateY: "-76px",
+                opacity: 0,
+                scaleX: 0.8,scaleY:0.8,
+                backgroundColor:'#000000',color:'#000000'
+            },{
+                duration: 800
+            });
+        }
     }
 }
 

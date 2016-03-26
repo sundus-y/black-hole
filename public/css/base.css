@@ -207,6 +207,7 @@ div.player-1-score, div.player-2-score {
     font-family: "Avenir Next Condensed";
     font-size: 40px;
     color: white;
+    display: none;
 }
 
 h3.winner {
@@ -214,4 +215,5 @@ h3.winner {
     font-family: "Avenir Next Condensed";
     font-size: 50px;
     text-shadow: 2px 0 black, 0 -1px black, 1px 0 black, 0 -1px black;
+    display: none;
 }
