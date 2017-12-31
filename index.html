@@ -1,77 +1,336 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=640">
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <link rel="stylesheet" href="stylesheets/core.css" media="screen">
-    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/base.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+    <script src="js/base.js"></script>
+    <script src="js/push.js"></script>
+    <title>Black Hole</title>
 
-    <script type="text/javascript" src="javascripts/modernizr.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function () {
-        $('#main_content').headsmart()
-      })
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Black Hole</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Play Online<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#" data-toggle="modal" data-target="#new_game_modal">Create New</a>
+                            </li>
+                            <li><a href="#" data-toggle="modal" data-target="#join_game_modal">Join Game</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
+    <div id="main_container" class="container">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-3">
+                    <h3 id='player1-name' >Player 1</h3>
+                </div>
+                <div class="col-md-6">
+                    <h1>Black Hole</h1>
+                    <div>
+                        The strategy of chess, the beauty of Go and the simplicity of checkers﻿
+                        <br>
+                        <button id="reset_game" type="button" class="btn btn-danger">Reset Game</button>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h3 id='player2-name'>Player 2</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 player1-side">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 id="player-1-turn">Your Turn</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="cell-player-box">
+                            <div id="player-1-1-" draggable="true" class="cell-player1" ondragstart="drag(event)">1</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-1-3-" draggable="true" class="cell-player1" ondragstart="drag(event)">3</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-1-5-" draggable="true" class="cell-player1" ondragstart="drag(event)">5</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-1-7-" draggable="true" class="cell-player1" ondragstart="drag(event)">7</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-1-9-" draggable="true" class="cell-player1" ondragstart="drag(event)">9</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="cell-player-box">
+                            <div id="player-1-2-" draggable="true" class="cell-player1" ondragstart="drag(event)">2</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-1-4-" draggable="true" class="cell-player1" ondragstart="drag(event)">4</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-1-6-" draggable="true" class="cell-player1" ondragstart="drag(event)">6</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-1-8-" draggable="true" class="cell-player1" ondragstart="drag(event)">8</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-1-10-" draggable="true" class="cell-player1" ondragstart="drag(event)">10</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 board">
+                <div class="row row-1">
+                    <div class="col-md-3"></div>
+                    <div id="board-1-1" data-row="1" data-col="1" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-1-2" data-row="1" data-col="2" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-1-3" data-row="1" data-col="3" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-1-4" data-row="1" data-col="4" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-1-5" data-row="1" data-col="5" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-1-6" data-row="1" data-col="6" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div class="col-md-3"></div>
+                </div>
+                <div class="row row-2">
+                    <!--<div class="col-md-4"></div>-->
+                    <div id="board-2-1" data-row="2" data-col="1" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-2-2" data-row="2" data-col="2" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-2-3" data-row="2" data-col="3" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-2-4" data-row="2" data-col="4" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-2-5" data-row="2" data-col="5" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <!--<div class="col-md-4"></div>-->
+                </div>
+                <div class="row row-3">
+                    <div class="col-md-4"></div>
+                    <div id="board-3-1" data-row="3" data-col="1" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-3-2" data-row="3" data-col="2" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-3-3" data-row="3" data-col="3" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-3-4" data-row="3" data-col="4" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div class="col-md-4"></div>
+                </div>
+                <div class="row row-4">
+                    <!--<div class="col-md-5"></div>-->
+                    <div id="board-4-1" data-row="4" data-col="1" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-4-2" data-row="4" data-col="2" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-4-3" data-row="4" data-col="3" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <!--<div class="col-md-4"></div>-->
+                </div>
+                <div class="row row-5">
+                    <div class="col-md-5"></div>
+                    <div id="board-5-1" data-row="5" data-col="1" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div id="board-5-2" data-row="5" data-col="2" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <div class="col-md-5"></div>
+                </div>
+                <div class="row row-6">
+                    <!--<div class="col-md-6"></div>-->
+                    <div id="board-6-1" data-row="6" data-col="1" class="col-md-1 cell" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="disallowDrop(event)"></div>
+                    <!--<div class="col-md-5"></div>-->
+                </div>
+            </div>
+            <div class="col-md-2 player2-side">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 id="player-2-turn">Your Turn</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="cell-player-box">
+                            <div id="player-2-1-" draggable="true" class="cell-player2" ondragstart="drag(event)">1</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-2-3-" draggable="true" class="cell-player2" ondragstart="drag(event)">3</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-2-5-" draggable="true" class="cell-player2" ondragstart="drag(event)">5</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-2-7-" draggable="true" class="cell-player2" ondragstart="drag(event)">7</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-2-9-" draggable="true" class="cell-player2" ondragstart="drag(event)">9</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="cell-player-box">
+                            <div id="player-2-2-" draggable="true" class="cell-player2" ondragstart="drag(event)">2</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-2-4-" draggable="true" class="cell-player2" ondragstart="drag(event)">4</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-2-6-" draggable="true" class="cell-player2" ondragstart="drag(event)">6</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-2-8-" draggable="true" class="cell-player2" ondragstart="drag(event)">8</div>
+                        </div>
+                        <div class="cell-player-box">
+                            <div id="player-2-10-" draggable="true" class="cell-player2" ondragstart="drag(event)">10</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.container -->
+
+    <div id="new_game_modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Create New Game</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="create_game_form" class="form-inline">
+                        <div class="form-group">
+                            <label for="host_name">Your name:</label>
+                            <input type="text" class="form-control" id="host_name" placeholder="Name . . ." pattern=".{3,}" required title="3 characters minimum">
+                            <label for="new_game_key" style="margin-left: 25px;">KEY:</label>
+                            <input type="text" class="form-control" id="new_game_key" placeholder="Auto" style="font-size: 24px; width: 87px;" disabled>
+                        </div>
+                        <button style="float: right" id="create_game" type="submit" class="btn btn-success">Create Game</button>
+                    </form>
+                    <div id="new_game_progress" class="progress" style="display: none">
+                        <div class="new_progress_bar progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                            Creating Game
+                        </div>
+                    </div>
+                    <div id='join_note' class="alert alert-info" role="alert" style="display: none">Now tell your friend the KEY and wait until he joins. Please don't close this box.</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="join_game_modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Join Game</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="join_game_form" class="form-inline">
+                        <div class="form-group">
+                            <label for="client_name">Your name:</label>
+                            <input type="text" class="form-control" id="client_name" placeholder="Name . . ." pattern=".{3,}" required title="3 characters minimum">
+                            <label for="join_game_key" style="margin-left: 25px;">KEY:</label>
+                            <input type="text" class="form-control" id="join_game_key" placeholder="KEY" pattern=".{4}" required title="4 characters Key" style="font-size: 24px; width: 87px;">
+                        </div>
+                        <button style="float: right" id="join_game" type="submit" class="btn btn-success">Join Game</button>
+                    </form>
+                    <div id="join_game_progress" class="progress" style="display: none">
+                        <div class="join_progress_bar progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                            Connecting to host
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="game_over_modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div id="game_over_modal_content" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 id="round_title" class="modal-title">Round 1/2</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="round_1_result row">
+                        <div class="col-md-6">
+                            <div class="player-1-black-hole-elem row">
+
+                            </div>
+                            <div class="player-1-score row">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="player-2-black-hole-elem row">
+
+                            </div>
+                            <div class="player-2-score row">
+
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="winner round_1_winner"></h3>
+                    <hr>
+                    <div class="round_2_result row" style="display: none">
+                        <div class="col-md-6">
+                            <div class="player-1-black-hole-elem row">
+
+                            </div>
+                            <div class="player-1-score row">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="player-2-black-hole-elem row">
+
+                            </div>
+                            <div class="player-2-score row">
+
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="winner round_2_winner"></h3>
+                </div>
+                <div class="modal-footer">
+                    <button id="modal_next_game" type="button" class="btn btn-danger" data-dismiss="modal">Play Round 2</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-75436003-1', 'auto');
+        ga('send', 'pageview');
+
     </script>
-    <title>Black-hole by sundus-y</title>
-  </head>
-
-  <body>
-    <a id="forkme_banner" href="https://github.com/sundus-y/black-hole">View on GitHub</a>
-    <div class="shell">
-
-      <header>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <h1>Black-hole</h1>
-            <h2>A fun and easy game.</h2>
-          </span>
-          <span class="left-tail"></span>
-          <span class="right-tail"></span>
-        </span>
-      </header>
-
-      <section id="downloads">
-        <span class="inner">
-          <a href="https://github.com/sundus-y/black-hole/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/sundus-y/black-hole/tarball/master" class="tgz"><em>download</em> .TGZ</a>
-        </span>
-      </section>
-
-
-      <span class="banner-fix"></span>
-
-
-      <section id="main_content">
-        <h3>
-<a id="welcome-to-black-hole" class="anchor" href="#welcome-to-black-hole" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome to Black Hole.</h3>
-
-<p>Black Hole is a test number war game where players take turns placing counters, 1 then 2 then 3, all the way down to 10. At the end of the game there'll be one place left on the board, that is the <b>Black Hole</b>, which sucks in all the numbers around it. So whoever has the least number pulled in is going to be the winner.</p>
-
-<hr>
-
-<h3>
-<a id="inspired-by-black-hole" class="anchor" href="#inspired-by-black-hole" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Inspired By: <a href="https://goo.gl/zpifPk">Black Hole</a>
-</h3>
-      </section>
-
-      <footer>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <p>this project by <a href="https://github.com/sundus-y">sundus-y</a> can be found on <a href="https://github.com/sundus-y/black-hole">GitHub</a></p>
-          </span>
-          <span class="left-tail"></span>
-          <span class="right-tail"></span>
-        </span>
-        <p>Generated with <a href="https://pages.github.com">GitHub Pages</a> using Merlot</p>
-        <span class="octocat"></span>
-      </footer>
-
-    </div>
-
-    
-  </body>
+</body>
 </html>
